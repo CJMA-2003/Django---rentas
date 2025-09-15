@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Menú{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+  <!-- Encabezado opcional, discreto -->
+  <h2 class="text-white" style="margin-bottom: 30px;">Panel de Acciones</h2>
+
+  <div class="row">
+
+    <!-- Card Agregar Casa -->
+    <div class="col-sm-6 col-md-3">
+      <div class="panel panel-primary text-center" style="padding: 30px; border-radius: 15px;">
+        <div class="panel-body">
+          <i class="glyphicon glyphicon-home" style="font-size: 50px; margin-bottom: 15px;"></i>
+          <h4 class="panel-title">Casas</h4>
+          <a href="{% url 'modulo_casa' %}" class="btn btn-primary btn-block mt-3">Abrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Registrar Inquilino -->
+    <div class="col-sm-6 col-md-3">
+      <div class="panel panel-success text-center" style="padding: 30px; border-radius: 15px;">
+        <div class="panel-body">
+          <i class="glyphicon glyphicon-user" style="font-size: 50px; margin-bottom: 15px;"></i>
+          <h4 class="panel-title">Inquilino</h4>
+          <a class="btn btn-success btn-block mt-3" href="{% url 'modulo_inquilino' %}">Abrir</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card Registrar Pago -->
+    <div class="col-sm-6 col-md-3">
+      <div class="panel panel-warning text-center" style="padding: 30px; border-radius: 15px;">
+        <div class="panel-body">
+          <i class="glyphicon glyphicon-usd" style="font-size: 50px; margin-bottom: 15px;"></i>
+          <h4 class="panel-title">Pagos</h4>
+          <a href="{% url 'modulo_pago' %}" class="btn btn-warning btn-block mt-3">Abrir</a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+{% endblock %}

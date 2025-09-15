@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}Pagos Registrados{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Título -->
+    <div class="page-header text-center">
+        <h2><i class="glyphicon glyphicon-usd"></i> Pagos Registrados</h2>
+    </div>
+
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="{% url 'inicio' %}"><i class="glyphicon glyphicon-dashboard"></i> Inicio</a></li>
+        <li class="active">Pagos</li>
+    </ol>
+
+    <!-- Mensajes -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="glyphicon glyphicon-ok-circle"></i> {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Botón Registrar -->
+    <div class="text-right" style="margin-bottom: 20px;">
+        <a href="{% url 'formulario_pago' %}" class="btn btn-primary btn-lg">
+            <i class="glyphicon glyphicon-plus"></i> Registrar Pago
+        </a>
+    </div>
+
+    <!-- Tabla de Pagos -->
+    <div class="panel panel-default shadow-sm">
+        <div class="panel-heading">
+            <strong><i class="glyphicon glyphicon-list-alt"></i> Listado de Pagos</strong>
+        </div>
+        <div class="panel-body table-responsive">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Inquilino</th>
+                        <th class="text-center">Casa</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Monto ($)</th>
+                        <th class="text-center">Descripción</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pago in pagos %}
+                    <tr>
+                        <td>{{ pago.id }}</td>
+                        <td>{{ pago.inquilino.nombre }}</td>
+                        <td>{{ pago.inquilino.casa.nombre }}</td>
+                        <td>{{ pago.fecha }}</td>
+                        <td>${{ pago.monto }}</td>
+                        <td>{{ pago.descripcion|default:"-" }}</td>
+                        <td>
+                            <a href="{% url 'formulario_pago' pago.id %}" class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-edit"></i> Editar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-muted">No hay pagos registrados</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

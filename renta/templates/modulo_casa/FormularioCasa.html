@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Registrar Nueva Casa{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="margin-top: 40px;">
+    <div class="row">
+
+        <!-- Imagen izquierda -->
+        <div class="col-md-3 hidden-sm hidden-xs text-center">
+            <img src="https://arriendayvende.com/wp-content/uploads/2020/07/IMG_3793-scaled.jpg" alt="Casa izquierda"
+                style="max-width:100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+
+        <!-- Formulario centrado -->
+        <div class="col-md-6">
+            <div class="well" style="
+                background: #fff;
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            ">
+                <!-- Título -->
+                <h3 class="text-center" style="margin-bottom: 25px; font-weight: bold; color: #2c3e50;">
+                    <i class="glyphicon glyphicon-home"></i> Registrar Nueva Casa
+                </h3>
+
+                <!-- Formulario -->
+                <form method="POST"
+                    action="{% if tipo_form == 'editar' %}{% url 'editar_casa' id %}{% else %}{% url 'crear_casa' %}{% endif %}">
+                    {% csrf_token %}
+
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        <label for="nombre" style="font-weight: 600;">Nombre de la Casa</label>
+
+                        <input type="text" name="nombre" id="nombre" class="form-control input-lg"
+                            value="{% if data.nombre %} {{ data.nombre }}{% endif %}" placeholder="Ej: Casa Sol"
+                            required>
+                    </div>
+
+                    <!-- Dirección -->
+                    <div class="form-group">
+                        <label for="direccion" style="font-weight: 600;">Dirección</label>
+                        <input type="text" name="direccion" id="direccion" class="form-control input-lg"
+                            placeholder="Ej: Av. Quito #123" required
+                            value="{% if data.direccion %} {{ data.direccion }}{% endif %}">
+                    </div>
+
+                    <!-- Habitaciones y Precio -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="habitaciones" style="font-weight: 600;">Habitaciones</label>
+                                <input type="number" name="habitaciones" id="habitaciones" class="form-control input-lg"
+                                    min="1" required value="{{ data.habitaciones|default:'' }}">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="precio" style="font-weight: 600;">Precio ($)</label>
+                                <input type="number" name="precio" id="precio" class="form-control input-lg" min="0"
+                                    required value="{{ data.precio|default:'' }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="text-center" style="margin-top: 25px;">
+                        <a href="{% url 'modulo_casa' %}" class="btn btn-default btn-lg" style="margin-right: 10px;">
+                            <i class="glyphicon glyphicon-remove"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="glyphicon glyphicon-floppy-disk"></i> Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Imagen derecha -->
+        <div class="col-md-3 hidden-sm hidden-xs text-center">
+            <img src="https://images.vexels.com/media/users/3/128082/isolated/preview/040e64f15431e65bdd3f667c9297aa8a-casa-en-icono-de-manos.png"
+                alt="Casa derecha" style="max-width:100%; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+        </div>
+
+    </div>
+</div>
+{% endblock %}

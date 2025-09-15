@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Casas Registradas{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Título -->
+    <div class="page-header text-center">
+        <h2><i class="glyphicon glyphicon-home"></i> Casas Registradas</h2>
+    </div>
+
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="{% url 'inicio' %}"><i class="glyphicon glyphicon-dashboard"></i> Inicio</a></li>
+        <li class="active">Casas Registradas</li>
+    </ol>
+
+    <!-- Mensajes -->
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-success alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <i class="glyphicon glyphicon-ok-circle"></i> {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <!-- Botón Registrar -->
+    <div class="text-right" style="margin-bottom: 20px;">
+        <a href="{% url 'formulario_casa' %}" id="openModal" class="btn btn-primary btn-lg">
+            <i class="glyphicon glyphicon-plus"></i> Registrar Casa
+        </a>
+    </div>
+
+    <!-- Tabla de Casas -->
+    <div class="panel panel-default shadow-sm">
+        <div class="panel-heading">
+            <strong><i class="glyphicon glyphicon-list-alt"></i> Listado de Casas</strong>
+        </div>
+        <div class="panel-body table-responsive">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Dirección</th>
+                        <th class="text-center">Habitaciones</th>
+                        <th class="text-center">Precio</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for casa in casas %}
+                    <tr>
+                        <td>{{ casa.id }}</td>
+                        <td>{{ casa.nombre }}</td>
+                        <td>{{ casa.direccion }}</td>
+                        <td>{{ casa.habitaciones }}</td>
+                        <td>${{ casa.precio }}</td>
+                        <td>
+                            <a href="{% url 'formulario_casa' casa.id %}" class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'eliminar_casa' casa.id %}" class="btn btn-danger btn-sm"
+                                onclick="return confirm('¿Estás seguro de eliminar esta casa?');">
+                                <i class="glyphicon glyphicon-trash"></i> Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-muted">No hay casas registradas</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

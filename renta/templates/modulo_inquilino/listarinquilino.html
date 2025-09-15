@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Inquilinos Registrados{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <!-- Título -->
+    <div class="page-header text-center">
+        <h2><i class="glyphicon glyphicon-user"></i> Inquilinos Registrados</h2>
+    </div>
+
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb">
+        <li><a href="{% url 'inicio' %}"><i class="glyphicon glyphicon-dashboard"></i> Inicio</a></li>
+        <li class="active">Inquilinos Registrados</li>
+    </ol>
+
+    <!-- Mensajes -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade in" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="glyphicon glyphicon-ok-circle"></i> {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Botón Registrar -->
+    <div class="text-right" style="margin-bottom: 20px;">
+        <a href="{% url 'formulario_inquilino' %}" class="btn btn-primary btn-lg">
+            <i class="glyphicon glyphicon-plus"></i> Registrar Inquilino
+        </a>
+    </div>
+
+    <!-- Tabla de Inquilinos -->
+    <div class="panel panel-default shadow-sm">
+        <div class="panel-heading">
+            <strong><i class="glyphicon glyphicon-list-alt"></i> Listado de Inquilinos</strong>
+        </div>
+        <div class="panel-body table-responsive">
+            <table class="table table-hover table-striped table-bordered text-center">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Nombre</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Casa</th>
+                        <th class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inquilino in data %}
+                    <tr>
+                        <td>{{ inquilino.id }}</td>
+                        <td>{{ inquilino.nombre }}</td>
+                        <td>{{ inquilino.email }}</td>
+                        <td>{{ inquilino.casa.nombre }} - {{ inquilino.casa.direccion }}</td>
+                        <td>
+                            <a href="{% url 'formulario_inquilino' inquilino.id %}" class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-edit"></i> Editar
+                            </a>
+                            <a href="{% url 'eliminar_inquilino' inquilino.id %}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('¿Estás seguro de eliminar este inquilino?');">
+                                <i class="glyphicon glyphicon-trash"></i> Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-muted">No hay inquilinos registrados</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
