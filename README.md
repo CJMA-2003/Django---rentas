@@ -36,23 +36,6 @@ Este proyecto quedó implementado hasta el <b>registro de pagos</b>.
   <b>Base de Datos:</b> SQLite<br/>
   <b>Control de versiones:</b> Git y GitHub
 </p>
-
-<h2>🚀 Instalación</h2>
-
-```bash
-# 1. Clonar repositorio
-git clone https://github.com/TU_USUARIO/Django---rentas.git
-cd Django---rentas
-
-# 2. Crear entorno virtual e instalar dependencias
-python -m venv venv
-venv\Scripts\activate   # En Windows
-source venv/bin/activate # En Linux/Mac
-pip install -r requirements.txt
-
-# 3. Migraciones
-python manage.py makemigrations
-python manage.py migrate
-
 # 4. Ejecutar servidor
 python manage.py runserver
+
